@@ -75,3 +75,29 @@ img.sent {
 img.received {
   float: left;
 }
+
+.camera_viewport {
+  width: 100px;
+  height: 100px;
+  background-color: #000;
+  float: right;
+  margin: 4px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0.75) { /* 120 ldpi */
+  body { font-size: 24px; }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 1) { /* 160 mdpi */
+  body { font-size: 32px; }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 1.5) { /* 240 hdpi */
+  body { font-size: 48px; }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 2) { /* 320 xhdpi */
+  body { font-size: 64px; }
+}
+
+/*EOF*/

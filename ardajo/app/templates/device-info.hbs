@@ -1,0 +1,34 @@
+<h1>Device Info</h1>
+
+{{#if device}}
+  platform<br>
+  {{device.platform}}
+  <br>
+  cordova<br>
+  {{device.cordova}}
+  <br>
+  <br>
+{{/if}}
+
+appCodeName<br>
+{{navigator.appCodeName}}
+<br>
+appName<br>
+{{navigator.appName}}
+<br>
+<br>
+
+appVersion<br>
+{{navigator.appVersion}}
+<br>
+<br>
+
+userAgent<br>
+{{navigator.userAgent}}
+<br>
+<br>
+
+{{#if message}}
+  message<br>
+  {{message}}
+{{/if}}

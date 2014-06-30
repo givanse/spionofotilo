@@ -8,6 +8,7 @@ Router.map(function() {
   this.route('whatsapp');
   this.route('settings');
   this.route('application');
+  this.route('device-info');
 });
 
 export default Router;

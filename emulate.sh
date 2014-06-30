@@ -2,10 +2,12 @@
 
 set -e
 
+ripple=`pwd`'/node_modules/ripple-emulator/bin/ripple'
+
 ./build.sh
 
 cd telefona/
-
-ripple emulate
+phonegap build android
+$ripple emulate
 
 #EOF

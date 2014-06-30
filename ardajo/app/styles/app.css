@@ -20,7 +20,7 @@ body > .ember-view {
   z-index: 1000;
 }
 
-#header {
+header {
   height: 2em;
   width: 100%;
   background-color: #525252;

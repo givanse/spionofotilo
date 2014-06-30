@@ -2,7 +2,10 @@
 
 set -e
 
-cd telefona
+./build.sh
+
+cd telefona/
+
 phonegap run android
 
 exit

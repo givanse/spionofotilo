@@ -8,10 +8,12 @@ bower update
 ember server
 
 rm -r telefona/
-phonegap create telefona/ se.givan.spionofotilo spionofotilo
+create telefona/ se.givan.spionofotilo spionofotilo
 cd telefona/
-phonegap platform update android
 git checkout telefona/
-phonegap plugin add org.apache.cordova.device
-phonegap run android
+
+# https://crosswalk-project.org/#wiki/Plugins-list-@-3.4.0-supported-by-crosswalk-cordova-android
+plugman install --platform android --project . \
+    --plugin https://git-wip-us.apache.org/repos/asf/cordova-plugin-device.git#r0.2.9
+./cordova/run
 ```

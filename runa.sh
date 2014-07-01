@@ -5,7 +5,7 @@ set -e
 ./build.sh
 
 cd telefona/
-phonegap run android
+./cordova/run
 
 exit
 #EOF

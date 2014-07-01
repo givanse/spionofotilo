@@ -11,25 +11,28 @@ export default Ember.Route.extend({
   actions: {
 
     shoot: function() {
-      Ember.Logger.log("Modernizr.getusermedia", Modernizr.getusermedia);
+      Ember.Logger.log("check value of Modernizr.getusermedia: ", Modernizr.getusermedia);
 
       if (Modernizr.getusermedia) {
         Ember.Logger.log("try Modernizr.prefixed()");
 
         var _this = this;
         var errorCallback = function(e) {
-          Ember.Logger.error("UserMedia");
-          Ember.Logger.error(e.name);
-          Ember.Logger.error(e.constraintName);
-          Ember.Logger.error(e.message);
-          _this.errorRedirect(e.name);
+          Ember.Logger.error("errorCallback");
+          Ember.Logger.error("name", e.name);
+          Ember.Logger.error("constraintName", e.constraintName);
+          Ember.Logger.error("message", e.message);
+          _this.errorRedirect(e.name ? e.name : "errorCallback");
         };
 
         var successCallback = function(localMediaStream) {
-          Ember.Logger.log("localMediaStream", localMediaStream);
+          Ember.Logger.log("successCallback localMediaStream", localMediaStream);
 
-          var video = document.querySelector("video");
-          video.src = window.URL.createObjectURL(localMediaStream);
+          var video$ = Ember.$("video#viewport");
+          var url = window.URL || window.webkitURL;
+          var src = url.createObjectURL(localMediaStream) || localMediaStream;
+          video$.attr("src", src);
+          video$.get()[0].play();
 
           // Note: onloadedmetadata doesn't fire in Chrome when using it with getUserMedia.
           // See crbug.com/110938.
@@ -43,7 +46,7 @@ export default Ember.Route.extend({
         };
 
         var gUM = Modernizr.prefixed("getUserMedia", navigator);
-        Ember.Logger.log("gUM = ", typeof gUM);
+        Ember.Logger.log("typeof gUM = ", typeof gUM);
         gUM(constraints, successCallback, errorCallback);
 
       } else {

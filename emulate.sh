@@ -7,7 +7,7 @@ ripple=`pwd`'/node_modules/ripple-emulator/bin/ripple'
 ./build.sh
 
 cd telefona/
-phonegap build android
-$ripple emulate
+./cordova/build
+$ripple emulate --path assets/www/
 
 #EOF

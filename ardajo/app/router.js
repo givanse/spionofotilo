@@ -6,9 +6,10 @@ var Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('whatsapp');
+  this.route('news');
   this.route('settings');
   this.route('application');
-  this.route('device-info');
+  this.route('device-info', {path: "/device-info/:message"});
 });
 
 export default Router;

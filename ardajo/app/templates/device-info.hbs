@@ -1,6 +1,7 @@
-<h1>Device Info</h1>
+<p>
 
 {{#if device}}
+  Device:<br>
   platform<br>
   {{device.platform}}
   <br>
@@ -10,6 +11,7 @@
   <br>
 {{/if}}
 
+Navigator:<br>
 appCodeName<br>
 {{navigator.appCodeName}}
 <br>
@@ -29,6 +31,8 @@ userAgent<br>
 <br>
 
 {{#if message}}
-  message<br>
+  Error, message:<br>
   {{message}}
 {{/if}}
+
+</p>

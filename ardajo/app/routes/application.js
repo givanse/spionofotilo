@@ -1,6 +1,13 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  
+  errorRedirect: function(message) {
+    Ember.Logger.debug("errorRedirect()");
+    Ember.Logger.debug(message);
+    this.transitionTo("device-info", message);
+  },
+
   actions: {
 
     shoot: function() {
@@ -9,11 +16,13 @@ export default Ember.Route.extend({
       if (Modernizr.getusermedia) {
         Ember.Logger.log("try Modernizr.prefixed()");
 
+        var _this = this;
         var errorCallback = function(e) {
           Ember.Logger.error("UserMedia");
           Ember.Logger.error(e.name);
-          Ember.Logger.error(e.message);
           Ember.Logger.error(e.constraintName);
+          Ember.Logger.error(e.message);
+          _this.errorRedirect(e.name);
         };
 
         var successCallback = function(localMediaStream) {
@@ -38,14 +47,7 @@ export default Ember.Route.extend({
         gUM(constraints, successCallback, errorCallback);
 
       } else {
-        Ember.Logger.error("no getUserMedia(), show device info");
-
-        var model = {
-          message: "no getUserMedia()",
-          device: typeof device === "undefined" ? device : false, // org.apache.cordova.device
-          navigator: window.navigator
-        };
-        this.transitionTo("device-info", model);
+        this.errorRedirect("getUserMedia() not supported");
       }
     }
   }

@@ -1,10 +1,11 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  model: function() {
+  model: function(params, transition) {
     return {
-      message: "",
-      device: typeof device === "undefined" ? false : device, // org.apache.cordova.device 
+      message: params.message,
+      // org.apache.cordova.device 
+      device: ((typeof device) === "undefined") ? false : device,
       navigator: window.navigator
     };
   }

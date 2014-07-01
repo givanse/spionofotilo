@@ -2,8 +2,8 @@
 
 set -e
 
-# D" indicates Debug level or above) and the "*:S" indicates to filter out all others
-adb logcat CordovaLog:D *:S
+#W/ChromiumCameraInfo(29558): Missing android.permission.CAMERA permission, no system camera available.
+adb logcat *:S chromium ChromiumCameraInfo 
 
 exit
 #EOF

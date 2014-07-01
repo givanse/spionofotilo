@@ -26,12 +26,21 @@ export default Ember.Route.extend({
         };
 
         var successCallback = function(localMediaStream) {
-          Ember.Logger.log("successCallback localMediaStream", localMediaStream);
+          Ember.Logger.debug("[dbg] localMediaStream");
+          Ember.Logger.debug(localMediaStream);
 
           var video$ = Ember.$("video#viewport");
+          Ember.Logger.debug("[dbg] video$");
+          Ember.Logger.debug(video$);
           var url = window.URL || window.webkitURL;
+          Ember.Logger.debug("[dbg] url");
+          Ember.Logger.debug(url);
           var src = url.createObjectURL(localMediaStream) || localMediaStream;
+          Ember.Logger.debug("[dbg] src");
+          Ember.Logger.debug(src);
           video$.attr("src", src);
+          Ember.Logger.debug("[dbg] video$.get()[0]");
+          Ember.Logger.debug(video$.get()[0]);
           video$.get()[0].play();
 
           // Note: onloadedmetadata doesn't fire in Chrome when using it with getUserMedia.

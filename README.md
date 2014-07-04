@@ -9,7 +9,6 @@ ember server
 
 rm -r telefona/
 create telefona/ se.givan.spionofotilo spionofotilo
-cd telefona/
 git checkout telefona/
 
 # https://crosswalk-project.org/#wiki/Plugins-list-@-3.4.0-supported-by-crosswalk-cordova-android

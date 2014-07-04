@@ -1,66 +1,71 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  
-  errorRedirect: function(message) {
-    Ember.Logger.debug("errorRedirect()");
-    Ember.Logger.debug(message);
-    this.transitionTo("device-info", message);
-  },
 
-  actions: {
+  model: function() {
 
-    shoot: function() {
-      Ember.Logger.log("check value of Modernizr.getusermedia: ", Modernizr.getusermedia);
-
-      if (Modernizr.getusermedia) {
-        Ember.Logger.log("try Modernizr.prefixed()");
-
-        var _this = this;
-        var errorCallback = function(e) {
-          Ember.Logger.error("errorCallback");
-          Ember.Logger.error("name", e.name);
-          Ember.Logger.error("constraintName", e.constraintName);
-          Ember.Logger.error("message", e.message);
-          _this.errorRedirect(e.name ? e.name : "errorCallback");
-        };
-
-        var successCallback = function(localMediaStream) {
-          Ember.Logger.debug("[dbg] localMediaStream");
-          Ember.Logger.debug(localMediaStream);
-
-          var video$ = Ember.$("video#viewport");
-          Ember.Logger.debug("[dbg] video$");
-          Ember.Logger.debug(video$);
-          var url = window.URL || window.webkitURL;
-          Ember.Logger.debug("[dbg] url");
-          Ember.Logger.debug(url);
-          var src = url.createObjectURL(localMediaStream) || localMediaStream;
-          Ember.Logger.debug("[dbg] src");
-          Ember.Logger.debug(src);
-          video$.attr("src", src);
-          Ember.Logger.debug("[dbg] video$.get()[0]");
-          Ember.Logger.debug(video$.get()[0]);
-          video$.get()[0].play();
-
-          // Note: onloadedmetadata doesn't fire in Chrome when using it with getUserMedia.
-          // See crbug.com/110938.
-          video.onloadedmetadata = function(e) {
-            // Ready to go. Do some stuff.
-          };
-        };
-
-        var constraints = {
-          video: true
-        };
-
-        var gUM = Modernizr.prefixed("getUserMedia", navigator);
-        Ember.Logger.log("typeof gUM = ", typeof gUM);
-        gUM(constraints, successCallback, errorCallback);
-
-      } else {
-        this.errorRedirect("getUserMedia() not supported");
-      }
+    if ( typeof MediaStreamTrack === "undefined" ) {
+      Ember.Logger.log("MediaStreamTrack not supported");
+      return [{desc: "MediaStreamTrack not found"}];
     }
-  }
+
+    Ember.Logger.debug("MediaStreamTrack.getSources:");
+    Ember.Logger.debug(MediaStreamTrack.getSources);
+    if ( typeof MediaStreamTrack.getSources === "undefined" ) {
+      Ember.Logger.log("MediaStreamTrack.getSources() not supported");
+      return [{desc: "can't list media sources"}];
+    }
+
+    var promise = new Ember.RSVP.Promise(function(resolve, reject) {
+      MediaStreamTrack.getSources(function(sources) {
+        Ember.Logger.log("MediaStreamTrack sources:");
+        Ember.Logger.log(sources);
+        
+        if ( sources.length > 0 ) {
+          resolve(sources);
+        } else {
+          reject([{desc: "didn't find media sources"}]);
+        }
+      }); // getSources
+    }); // promise
+
+    return promise.then(function(sources) {
+        function isVideo(elem) {
+          return elem && elem.kind === "video";
+        }
+
+        var videoSources = sources.filter(isVideo);
+
+        if (videoSources.length < 1) {
+          return [{desc: "didn't find video sources"}];
+        }
+
+
+        // customize facingCustom, desc
+        for (var i = 0; i < videoSources.length; i++) {
+          var vSrc = videoSources[i];
+          Ember.Logger.debug("Video source:");
+          Ember.Logger.debug(vSrc);
+
+          if ( ! vSrc.label ) {
+            vSrc.desc = "cam " + (i + 1); // start count from 1
+          }
+
+          if ( vSrc.facing ) {
+            if ( vSrc.facing === "user" ) {
+              vSrc.facingCustom = "front"; // self
+            } else if (vSrc.facing === "environment" ) {
+              vSrc.facingCustom = "back";
+            }
+          }
+        }
+
+        Ember.Logger.debug("Final video sources list:");
+        Ember.Logger.debug(videoSources);
+        return videoSources;
+      }, function(reason) {
+        return [{desc: reason}];
+      });
+  } // model
+
 });

@@ -1,6 +1,19 @@
 <header>
   {{link-to "Settings" "settings"}}
   {{link-to "Info" "device-info" ""}}
+  {{#each}}
+    <div class="camid" {{action "selectVSource" this.id target="view"}}>
+      {{#if this.facing}}
+        {{this.facingCustom}}
+      {{else}}
+        {{#if this.label}}
+          {{this.label}}
+        {{else}}
+          {{this.desc}}
+        {{/if}}
+      {{/if}}
+    </div>
+  {{/each}}
 </header>
 
 <main>

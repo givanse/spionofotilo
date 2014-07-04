@@ -60,4 +60,16 @@ https://github.com/phonegap-build/BarcodeScanner/blob/9270025f71891b2f46a38b7bc3
 
 ################################################
 
+august 2012
+http://stackoverflow.com/questions/11762199/screenshot-canvas-getusermedia-chrome
+may 2013
+http://matthewschrager.com/2013/05/25/how-to-take-webcam-pictures-from-browser-and-store-server-side/
+october 2013
+http://www.html5rocks.com/en/tutorials/getusermedia/intro/
 
+################################################
+
+october 2013
+http://webrtchacks.com/how-to-figure-out-webrtc-camera-resolutions/
+
+#EOF

@@ -55,7 +55,7 @@ export default Ember.Route.extend({
             if ( vSrc.facing === "user" ) {
               vSrc.facingCustom = "front"; // self
             } else if (vSrc.facing === "environment" ) {
-              vSrc.facingCustom = "back";
+              vSrc.facingCustom = "rear"; // back
             }
           }
         }

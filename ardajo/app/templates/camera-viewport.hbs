@@ -1,2 +1,9 @@
-<div id="shoot" {{action "shoot"}}>Shoot</div>
-<video id="viewport" autoplay></video>
+<div class="camera_viewport">
+
+  <div id="shoot" {{action "takePicture" target="view"}}>Shoot</div>
+
+  <video id="viewport" autoplay></video>
+
+  <canvas id="canvas"></canvas>
+
+</div>

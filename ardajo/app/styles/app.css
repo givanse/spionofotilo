@@ -105,6 +105,11 @@ img.received {
   height: 2rem;
 }
 
+canvas#canvas {
+  background-color: pink;
+  display: none;
+} 
+
 @media screen and (-webkit-min-device-pixel-ratio: 0.75) { /* 120 ldpi */
   body { font-size: 12px; }
 }
